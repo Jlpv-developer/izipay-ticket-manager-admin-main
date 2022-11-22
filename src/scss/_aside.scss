@@ -1,0 +1,398 @@
+@include desktop {
+  html {
+    &.has-aside-left {
+      &.has-aside-left-expanded {
+        // Empuja el navbar y el navbar a la derecha (tipo flex)
+        nav.navbar, body {
+          padding-left: $aside-width / 1.15;
+        }
+        nav.navbar {
+          margin-left: 15rem;
+          margin-right: .8rem;
+          // height: 6.5rem;
+          box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05)!important;
+          border-radius: 0px 0px 4px 0px!important;
+        }
+      }
+      nav.navbar, body {
+        @include transition(padding-left);
+      }
+      aside.is-placed-left {
+        display: block;
+      }
+    }
+
+    &.has-aside-right {
+      &.has-aside-right-expanded {
+        body {
+          padding-right: $aside-width;
+        }
+      }
+      nav.navbar, body {
+        @include transition(padding-right);
+      }
+      aside.is-placed-right {
+        display: block;
+      }
+      #app{
+        padding-right: 3.8rem!important;
+      }
+    }
+  }
+
+  aside.aside-left.is-expanded {
+    width: $aside-width;
+
+    .menu-list {
+      @include icon-with-update-mark($aside-icon-width);
+
+      span.menu-item-label {
+        display: inline-block;
+      }
+
+      li.is-active {
+        ul {
+          display: block;
+        }
+      }
+    }
+  }
+
+  aside.aside-right.is-expanded {
+    width: $aside-width-right;
+
+    .menu-list {
+      @include icon-with-update-mark($aside-icon-width);
+
+      span.menu-item-label {
+        display: inline-block;
+      }
+
+      li.is-active {
+        ul {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@include tablet {
+  html {
+    &.has-aside-right {
+      &.has-aside-right-expanded {
+        body {
+          padding-right: $aside-width;
+        }
+      }
+      nav.navbar, body {
+        @include transition(padding-right);
+      }
+      aside.is-placed-right {
+        display: block;
+      }
+      #app{
+        padding-right: 17.5rem;
+      }
+    }
+    
+  }
+
+  aside.aside-right.is-expanded {
+    width: $aside-width-right;
+  }
+}
+
+@include mobile {
+  html {
+    &.has-aside-right {
+      &.has-aside-right-expanded {
+        body {
+          padding-right: $aside-width;
+        }
+      }
+      nav.navbar, body {
+        @include transition(padding-right);
+      }
+      aside.is-placed-right {
+        display: block;
+      }
+      #app{
+        padding-right: 0rem;
+      }
+    }
+    
+  }
+
+  aside.aside-right.is-expanded {
+    width: $aside-width-right;
+  }
+}
+
+
+aside.aside-left {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  height: 100vh;
+  padding: 0;
+  box-shadow: $aside-box-shadow;
+  background: $aside-background-color;
+
+  .aside-left-tools {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: $aside-tools-background-color;
+    color: $aside-tools-color;
+    line-height: $navbar-height;
+    height: $navbar-height;
+    padding-left: $default-padding * .5;
+    flex: 1;
+
+    .icon {
+      margin-right: $default-padding * .5;
+    }
+  }
+
+  .menu-list {
+    li {
+      a {
+        &.has-dropdown-icon {
+          position: relative;
+          padding-right: $aside-icon-width;
+
+          .dropdown-icon {
+            position: absolute;
+            top: $size-base * .5;
+            right: 0;
+          }
+        }
+      }
+      ul {
+        display: none;
+        border-left: 0;
+        background-color: darken($base-color, 2.5%);
+        padding-left: 0;
+        margin: 0 0 $default-padding * .5;
+
+        li {
+          a {
+            padding: $default-padding * .5 0 $default-padding * .5 $default-padding * .5;
+            font-size: $aside-submenu-font-size;
+
+            &.has-icon {
+              padding-left: 0;
+            }
+            &.is-active {
+              &:not(:hover) {
+                background: transparent;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Se encarga de darle diseño al label (BANDEJA DE ENTRADA) 
+  // ($default-padding (1.5rem))
+  .menu-label {
+    padding: 0 $default-padding * .5;
+    margin-top: $default-padding * .5;
+    margin-bottom: $default-padding * .5;
+  }
+
+}
+
+@include touch {
+  #app, nav.navbar {
+    @include transition(margin-left);
+  }
+  aside.aside-left {
+    @include transition(left);
+  }
+  html.has-aside-left-mobile-transition {
+    body {
+      overflow-x: hidden;
+    }
+    body, #app, nav.navbar {
+      width: 100vw;
+    }
+    aside.aside-left {
+      width: $aside-mobile-width;
+      display: block;
+      left: $aside-mobile-width * -1;
+
+      .image {
+        img {
+          max-width: $aside-mobile-width * .33;
+        }
+      }
+
+      .menu-list {
+        li.is-active {
+          ul {
+            display: block;
+          }
+        }
+        a {
+          @include icon-with-update-mark($aside-icon-width);
+
+          span.menu-item-label {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+  html.has-aside-left-mobile-expanded {
+    #app, nav.navbar {
+      margin-left: 15rem;
+    }
+    aside.aside-left {
+      left: 0;
+    }
+  }
+}
+
+aside.aside-right {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 16.8rem!important;
+  padding: 0.5rem;
+  margin: 8rem 0.7rem 0 0;
+  background: $aside-background-color;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
+  border: rgba(92, 92, 92, 0.089) 0.2px solid;
+  border-radius: 5px;
+
+  @media only screen and (max-width: 768px) {
+    position: fixed;
+    height: 100vh;
+    z-index: 40;
+    margin: 0;
+    top:0;
+    right: 0;
+  }
+
+  .aside-right-tools {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: $aside-tools-background-color;
+    color: $aside-tools-color;
+    line-height: $navbar-height;
+    height: $navbar-height;
+    padding-right: $default-padding * .5;
+    flex: 1;
+
+    .icon {
+      margin-left: $default-padding * .5;
+    }
+  }
+
+  .menu-list {
+    li {
+      a {
+        &.has-dropdown-icon {
+          position: relative;
+          padding-left: $aside-icon-width;
+
+          .dropdown-icon {
+            position: absolute;
+            top: $size-base * .5;
+            left: 0;
+          }
+        }
+      }
+      ul {
+        display: none;
+        border-right: 0;
+        background-color: darken($base-color, 2.5%);
+        padding-right: 0;
+        margin: 0 0 $default-padding * .5;
+
+        li {
+          a {
+            padding: $default-padding * .5 0 $default-padding * .5 $default-padding * .5;
+            font-size: $aside-submenu-font-size;
+
+            &.has-icon {
+              padding-right: 0;
+            }
+            &.is-active {
+              &:not(:hover) {
+                background: transparent;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Se encarga de darle diseño al label (BANDEJA DE ENTRADA) 
+  // ($default-padding (1.5rem))
+  .menu-label {
+    padding: 0 $default-padding * .5;
+    margin-top: $default-padding * .5;
+    margin-bottom: $default-padding * .5;
+  }
+
+}
+
+@include touch {
+  #app, nav.navbar {
+    @include transition(margin-right);
+  }
+  aside.aside-right {
+    @include transition(right);
+  }
+  html.has-aside-right-mobile-transition {
+    body {
+      overflow-x: hidden;
+    }
+    body, #app, nav.navbar {
+      width: 100vw;
+    }
+    aside.aside-right {
+      width: $aside-mobile-width;
+      display: block;
+      right: $aside-mobile-width * -1;
+
+      .image {
+        img {
+          max-width: $aside-mobile-width * .33;
+        }
+      }
+
+      .menu-list {
+        li.is-active {
+          ul {
+            display: block;
+          }
+        }
+        a {
+          @include icon-with-update-mark($aside-icon-width);
+
+          span.menu-item-label {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+  html.has-aside-right-mobile-expanded {
+    #app, nav.navbar {
+      margin-right: $aside-mobile-width;
+    }
+    aside.aside-right {
+      right: 0;
+    }
+  }
+}
